@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RadioTab extends StatelessWidget {
   const RadioTab({super.key});
@@ -13,7 +14,7 @@ class RadioTab extends StatelessWidget {
           height: 40,
         ),
         Text(
-          'Quran Radio',
+          AppLocalizations.of(context)!.quran_radio,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         const SizedBox(
@@ -26,7 +27,7 @@ class RadioTab extends StatelessWidget {
                 onPressed: () {},
                 icon: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
+                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
                   child: Icon(
                     Icons.skip_previous,
                     size: 40,
@@ -49,7 +50,8 @@ class RadioTab extends StatelessWidget {
             IconButton(
                 onPressed: () {},
                 icon: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
                   child: Icon(
                     Icons.skip_next,
                     size: 40,

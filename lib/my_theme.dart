@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MyTheme {
-  static Color primaryLight = Color(0xffB7935F);
-  static Color blackColor = Color(0xff242424);
-  static Color whiteColor = Color(0xffffffff);
+  static Color primaryLight = const Color(0xffB7935F);
+  static Color blackColor = const Color(0xff242424);
+  static Color whiteColor = const Color(0xffffffff);
 
   static ThemeData lightTheme = ThemeData(
     primaryColor: primaryLight,
@@ -18,7 +18,7 @@ class MyTheme {
     ),
 
     /// Text Theme
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       titleLarge: TextStyle(
         fontSize: 30,
         fontWeight: FontWeight.bold,
@@ -37,7 +37,12 @@ class MyTheme {
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedItemColor: blackColor,
       unselectedItemColor: whiteColor,
-      // showUnselectedLabels: true,
+      selectedIconTheme: const IconThemeData(size: 40),
+      unselectedIconTheme: const IconThemeData(size: 30),
+      unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+      showUnselectedLabels: false,
+      showSelectedLabels: true,
     ),
   );
 }

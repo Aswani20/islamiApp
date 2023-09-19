@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SebhaTab extends StatefulWidget {
   SebhaTab({super.key});
@@ -10,7 +11,8 @@ class SebhaTab extends StatefulWidget {
 class _SebhaTabState extends State<SebhaTab> {
   int counter = 0;
   double angle = 0;
-  List<String> azkar = ['Sobhan Allah', 'Allhamdollah', 'Astakfer Allah'];
+
+  // List<String> azkar = ['Sobhan Allah', 'Allhamdollah', 'Astakfer Allah'];
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class _SebhaTabState extends State<SebhaTab> {
           Padding(
             padding: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width * 0.05,
-              vertical: MediaQuery.of(context).size.height * 0.1,
+              vertical: MediaQuery.of(context).size.height * 0.08,
             ),
             child: InkWell(
               onTap: () {
@@ -36,7 +38,7 @@ class _SebhaTabState extends State<SebhaTab> {
             ),
           ),
           Text(
-            'Numbers of Tasbeh',
+            AppLocalizations.of(context)!.tasbeh_number,
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(
@@ -63,12 +65,12 @@ class _SebhaTabState extends State<SebhaTab> {
             ),
             child: Text(
               counter < 33
-                  ? azkar[0]
+                  ? AppLocalizations.of(context)!.sobhan_allah
                   : counter < 66
-                      ? azkar[1]
+                      ? AppLocalizations.of(context)!.allhamdollah
                       : counter < 99
-                          ? azkar[2]
-                          : 'Allah Akber',
+                          ? AppLocalizations.of(context)!.astakfer_allah
+                          : AppLocalizations.of(context)!.allah_akber,
               style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
@@ -81,9 +83,9 @@ class _SebhaTabState extends State<SebhaTab> {
                 counter = 0;
               });
             },
-            child: const Text(
-              'Reset Counter',
-              style: TextStyle(color: Color(0xffB7935F)),
+            child: Text(
+              AppLocalizations.of(context)!.reset,
+              style: const TextStyle(color: Color(0xffB7935F)),
             ),
           ),
         ],
