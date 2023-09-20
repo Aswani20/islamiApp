@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:islami/home/hadeth/item_hadeth_name.dart';
+import 'package:islami/my_theme.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/app_config_provider.dart';
 
 class HadethTab extends StatefulWidget {
   HadethTab({super.key});
@@ -15,6 +19,7 @@ class _HadethTabState extends State<HadethTab> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     if (hadethList.isEmpty) {
       loadHadethFile();
     }
@@ -25,7 +30,9 @@ class _HadethTabState extends State<HadethTab> {
           child: Image.asset('assets/images/hadeth_logo.png'),
         ),
         Divider(
-          color: Theme.of(context).primaryColor,
+          color: provider.isDark()
+              ? MyTheme.yellowColor
+              : Theme.of(context).primaryColor,
           thickness: 3,
         ),
         Text(
@@ -33,25 +40,29 @@ class _HadethTabState extends State<HadethTab> {
           style: Theme.of(context).textTheme.titleMedium,
         ),
         Divider(
-          color: Theme.of(context).primaryColor,
+          color: provider.isDark()
+              ? MyTheme.yellowColor
+              : Theme.of(context).primaryColor,
           thickness: 3,
         ),
         hadethList.isEmpty
             ? CircularProgressIndicator(
-                color: Theme.of(context).primaryColor,
-              )
+          color: Theme.of(context).primaryColor,
+        )
             : Expanded(
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => Divider(
-                    color: Theme.of(context).primaryColor,
+          child: ListView.separated(
+            separatorBuilder: (context, index) => Divider(
+                    color: provider.isDark()
+                        ? MyTheme.yellowColor
+                        : Theme.of(context).primaryColor,
                     thickness: 3,
                   ),
-                  itemBuilder: (context, index) => ItemHadethName(
-                    hadeth: hadethList[index],
-                  ),
-                  itemCount: hadethList.length,
-                ),
-              ),
+            itemBuilder: (context, index) => ItemHadethName(
+              hadeth: hadethList[index],
+            ),
+            itemCount: hadethList.length,
+          ),
+        ),
       ],
     );
   }

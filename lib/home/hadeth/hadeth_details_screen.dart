@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:islami/home/hadeth/hadeth_tab.dart';
 import 'package:islami/home/hadeth/item_hadeth_details.dart';
 import 'package:islami/my_theme.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/app_config_provider.dart';
 
 class HadethDetailsScreen extends StatefulWidget {
   static const String routeName = 'HadethDetails';
@@ -15,15 +18,23 @@ class HadethDetailsScreen extends StatefulWidget {
 class _SuraDetailsScreenState extends State<HadethDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     var args = ModalRoute.of(context)?.settings.arguments as Hadeth;
     return Stack(
       children: [
-        Image.asset(
-          'assets/images/main_bg.png',
-          height: double.infinity,
-          width: double.infinity,
-          fit: BoxFit.fill,
-        ),
+        provider.isDark()
+            ? Image.asset(
+                'assets/images/main_background_dark.png',
+                height: double.infinity,
+                width: double.infinity,
+                fit: BoxFit.fill,
+              )
+            : Image.asset(
+                'assets/images/main_bg.png',
+                height: double.infinity,
+                width: double.infinity,
+                fit: BoxFit.fill,
+              ),
         Scaffold(
           appBar: AppBar(
             title: Text(
@@ -38,7 +49,8 @@ class _SuraDetailsScreenState extends State<HadethDetailsScreen> {
             ),
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: MyTheme.whiteColor,
+              color:
+                  provider.isDark() ? MyTheme.primaryDark : MyTheme.whiteColor,
               borderRadius: BorderRadius.circular(24),
             ),
             child: ListView.builder(

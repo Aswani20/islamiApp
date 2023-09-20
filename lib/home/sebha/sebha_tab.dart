@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:islami/my_theme.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/app_config_provider.dart';
 
 class SebhaTab extends StatefulWidget {
   SebhaTab({super.key});
@@ -12,10 +16,9 @@ class _SebhaTabState extends State<SebhaTab> {
   int counter = 0;
   double angle = 0;
 
-  // List<String> azkar = ['Sobhan Allah', 'Allhamdollah', 'Astakfer Allah'];
-
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     return Center(
       child: Column(
         children: [
@@ -33,7 +36,9 @@ class _SebhaTabState extends State<SebhaTab> {
               },
               child: Transform.rotate(
                 angle: angle,
-                child: Image.asset('assets/images/sebha.png'),
+                child: provider.isDark()
+                    ? Image.asset('assets/images/sebha_dark.png')
+                    : Image.asset('assets/images/sebha.png'),
               ),
             ),
           ),
@@ -60,7 +65,9 @@ class _SebhaTabState extends State<SebhaTab> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
+              color: provider.isDark()
+                  ? MyTheme.yellowColor
+                  : Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(40),
             ),
             child: Text(
@@ -71,7 +78,12 @@ class _SebhaTabState extends State<SebhaTab> {
                       : counter < 99
                           ? AppLocalizations.of(context)!.astakfer_allah
                           : AppLocalizations.of(context)!.allah_akber,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: provider.isDark()
+                  ? Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: MyTheme.blackColor)
+                  : Theme.of(context).textTheme.titleMedium,
             ),
           ),
           const SizedBox(
@@ -85,7 +97,7 @@ class _SebhaTabState extends State<SebhaTab> {
             },
             child: Text(
               AppLocalizations.of(context)!.reset,
-              style: const TextStyle(color: Color(0xffB7935F)),
+              style: TextStyle(color: Color(0xffB7935F)),
             ),
           ),
         ],
