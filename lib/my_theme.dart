@@ -47,6 +47,7 @@ class MyTheme {
       showSelectedLabels: true,
     ),
   );
+
   static ThemeData darkTheme = ThemeData(
     primaryColor: primaryDark,
     scaffoldBackgroundColor: Colors.transparent,

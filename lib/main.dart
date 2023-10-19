@@ -6,22 +6,26 @@ import 'package:islami/home/quran/sura_details_screen.dart';
 import 'package:islami/my_theme.dart';
 import 'package:islami/providers/app_config_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(
     ChangeNotifierProvider(
       create: (context) => AppConfigProvider(),
-      child: const MyApp(),
+      child: MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  late AppConfigProvider provider;
+
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<AppConfigProvider>(context);
+    provider = Provider.of<AppConfigProvider>(context);
+    initSharedPref();
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
@@ -38,5 +42,19 @@ class MyApp extends StatelessWidget {
         HadethDetailsScreen.routeName: (context) => HadethDetailsScreen(),
       },
     );
+  }
+
+  Future<void> initSharedPref() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var language = prefs.getString('language');
+    if (language != null) {
+      provider.changeLanguage(language);
+    }
+    var theme = prefs.getString('theme');
+    if (theme == 'light') {
+      provider.changeTheme(ThemeMode.light);
+    } else if (theme == 'dark') {
+      provider.changeTheme(ThemeMode.dark);
+    }
   }
 }

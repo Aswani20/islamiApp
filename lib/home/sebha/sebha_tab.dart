@@ -22,25 +22,35 @@ class _SebhaTabState extends State<SebhaTab> {
     return Center(
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.05,
-              vertical: MediaQuery.of(context).size.height * 0.08,
-            ),
-            child: InkWell(
-              onTap: () {
-                setState(() {
-                  counter++;
-                  angle += 30;
-                });
-              },
-              child: Transform.rotate(
-                angle: angle,
-                child: provider.isDark()
-                    ? Image.asset('assets/images/sebha_dark.png')
-                    : Image.asset('assets/images/sebha.png'),
+          Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              provider.isDark()
+                  ? Image.asset('assets/images/head_of_sebha_dark.png')
+                  : Image.asset('assets/images/head_of_sebha.png'),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.05,
+                  right: MediaQuery.of(context).size.width * 0.05,
+                  top: MediaQuery.of(context).size.height * 0.09,
+                  bottom: MediaQuery.of(context).size.height * 0.04,
+                ),
+                child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      counter++;
+                      angle += 30;
+                    });
+                  },
+                  child: Transform.rotate(
+                    angle: angle,
+                    child: provider.isDark()
+                        ? Image.asset('assets/images/sebha_dark.png')
+                        : Image.asset('assets/images/sebha.png'),
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
           Text(
             AppLocalizations.of(context)!.tasbeh_number,
@@ -87,7 +97,7 @@ class _SebhaTabState extends State<SebhaTab> {
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: 20,
           ),
           TextButton(
             onPressed: () {
